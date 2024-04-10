@@ -63,13 +63,13 @@ pip install azure-ai-textanalytics
 
 Analisa o texto de entrada e determina se seu sentimento é positivo, negativo ou neutro. Sua resposta inclui análise de sentimento por frase e pontuações de confiança.
 
-Ver código de exemplo em Python usando SDK: [Sentiment-Analysis](./Sentiment-Analysis/)
+Ver código de exemplo em Python usando SDK: [Sentiment-Analysis](./Sentiment-Analysis/sentiment_analysis.py)
 
 ## Key Phrase Extration (Extração de frase-chave)
 
 A extração de frase-chave identifica os principais pontos do texto de entrada. Por exemplo, para o texto de entrada “*A comida estava deliciosa e havia uma equipe maravilhosa*”, a API retorna: “*comida*” e “*equipe maravilhosa*”.
 
-Ver código de exemplo em Python usando SDK: [Key-Phrase-Extraction](./Key-Phrase-Extraction/)
+Ver código de exemplo em Python usando SDK: [Key-Phrase-Extraction](./Key-Phrase-Extraction/key_phrase_extraction.py)
 
 ---
 Bons estudos! - ***André Carlucci***
