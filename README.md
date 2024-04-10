@@ -65,11 +65,78 @@ Analisa o texto de entrada e determina se seu sentimento é positivo, negativo o
 
 Ver código de exemplo em Python usando SDK: [Sentiment-Analysis](./Sentiment-Analysis/sentiment_analysis.py)
 
+```python
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.textanalytics import TextAnalyticsClient
+
+# pega as Credenciais do recurso Text Analytics no Azure
+credential = AzureKeyCredential("3269************************71cb")
+endpoint = "https://eastus.api.cognitive.microsoft.com/"
+
+# client do TextAnalytics
+textAnalyticsClient = TextAnalyticsClient(endpoint, credential)
+
+# frases (sentenças) para serem analisadas
+documents = [
+    "Não gostei do restaurante. A comida era de alguma forma muito picante e pouco temperada. Além disso, achei que o local era muito longe do teatro.",
+    "O restaurante foi lindamente decorado. A atmosfera era diferente de qualquer outro restaurante que já estive.",
+    ":)",
+    ":(",
+    "O Restaurante não era nem bom nem ruim."
+    "A comida era gostosa."
+]
+
+# pega o retorno da Análise de Sentimentos guardando apenas os resultados que não retornaram erros
+response = textAnalyticsClient.analyze_sentiment(documents, language="pt")
+result = [doc for doc in response if not doc.is_error]
+
+# apresenta o Resultado da Análise de Sentimentos realizada pelo "Azure Text Analytics"
+print("Análise de Sentimento - Resultados obtidos:\n")
+i = 0
+for doc in result:
+    print("Sentença analisada: \"{}\"".format(documents[i]))
+    print("Sentimento geral: {}".format(doc.sentiment))
+    print("Scores: positivo={}; neutro={}; negativo={} \n".format(
+        doc.confidence_scores.positive,
+        doc.confidence_scores.neutral,
+        doc.confidence_scores.negative
+    ))
+    i += 1
+```
+
 ## Key Phrase Extration (Extração de frase-chave)
 
 A extração de frase-chave identifica os principais pontos do texto de entrada. Por exemplo, para o texto de entrada “*A comida estava deliciosa e havia uma equipe maravilhosa*”, a API retorna: “*comida*” e “*equipe maravilhosa*”.
 
 Ver código de exemplo em Python usando SDK: [Key-Phrase-Extraction](./Key-Phrase-Extraction/key_phrase_extraction.py)
+
+```python
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.textanalytics import TextAnalyticsClient
+
+# pega as Credenciais do recurso Text Analytics no Azure
+credential = AzureKeyCredential("3269************************71cb")
+endpoint = "https://eastus.api.cognitive.microsoft.com/"
+
+# client do TextAnalytics
+textAnalyticsClient = TextAnalyticsClient(endpoint, credential)
+
+# frases (sentenças) para serem analisadas
+documents = [
+    "Não gostei do restaurante. A comida era de alguma forma muito picante e pouco temperada. Além disso, achei que o local era muito longe do teatro.",
+    "O restaurante foi lindamente decorado. A atmosfera era diferente de qualquer outro restaurante que já estive.",
+    "A comida era gostosa."
+]
+
+# pega o retorno da Análise guardando apenas os resultados que não retornaram erros
+response = textAnalyticsClient.extract_key_phrases(documents, language="pt")
+result = [doc for doc in response if not doc.is_error]
+
+# apresenta o Resultado da Análise realizada pelo "Azure Text Analytics"
+print("Extração de Frase-Chave - Resultados obtidos:\n")
+for doc in result:
+    print(doc.key_phrases)
+```
 
 ---
 Bons estudos! - ***André Carlucci***
